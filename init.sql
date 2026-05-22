@@ -1,6 +1,3 @@
-CREATE DATABASE IF NOT EXISTS eboutique;
-USE eboutique;
-
 CREATE TABLE Administrateur (
     id_admin INT AUTO_INCREMENT,
     login VARCHAR(50) NOT NULL,
@@ -44,7 +41,7 @@ CREATE TABLE Produit (
 
 CREATE TABLE Commande (
     id_commande INT AUTO_INCREMENT,
-    date DATE NOT NULL DEFAULT CURRENT_DATE,
+    date DATE NOT NULL,
     statut ENUM('En attente', 'Refusé', 'Accepté') NOT NULL DEFAULT 'En attente',
     statut_livraison ENUM('En attente', 'Livré', 'Non livré') NOT NULL DEFAULT 'En attente',
     prix_total DECIMAL(10,2) NOT NULL,
