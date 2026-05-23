@@ -25,38 +25,34 @@ class UtilisateurController {
                 exit();
             }
             else {
-                header('Location: index.php?page=connexion&erreur=1');
-                exit();
+                $erreur = "Identifiants incorrects.";
             }
         }
-        else {
-            require 'views/client/connexion.php';
-        }
+        require 'views/client/connexion.php';
     }
 
     public function inscription() {
         if (isset($_POST['mail'], $_POST['mot_de_passe'])) {
             $existant = $this->modele->getByMail($_POST['mail']);
             if ($existant) {
-                header('Location: index.php?page=inscription&erreur=1');
+                $erreur = "Cette adresse mail est déjà utilisée.";
+            }
+            else {
+                $mot_de_passe = password_hash($_POST['mot_de_passe'], PASSWORD_BCRYPT);
+                $data = [
+                    ':nom' => $_POST['nom'],
+                    ':prenom' => $_POST['prenom'],
+                    ':mail' => $_POST['mail'],
+                    ':telephone' => $_POST['telephone'] ?? null,
+                    ':adresse' => $_POST['adresse'] ?? null,
+                    ':mot_de_passe' => $mot_de_passe
+                ];
+                $this->modele->insert($data);
+                header('Location: index.php?page=connexion');
                 exit();
             }
-            $mot_de_passe = password_hash($_POST['mot_de_passe'], PASSWORD_BCRYPT);
-            $data = [
-                ':nom' => $_POST['nom'],
-                ':prenom' => $_POST['prenom'],
-                ':mail' => $_POST['mail'],
-                ':telephone' => $_POST['telephone'] ?? null,
-                ':adresse' => $_POST['adresse'] ?? null,
-                ':mot_de_passe' => $mot_de_passe
-            ];
-            $this->modele->insert($data);
-            header('Location: index.php?page=connexion');
-            exit();
         }
-        else {
-            require 'views/client/inscription.php';
-        }
+        require 'views/client/inscription.php';
     }
 
     public function deconnexion() {
