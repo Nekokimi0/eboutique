@@ -1,6 +1,6 @@
 <?php
 // ============================================================
-// models/Utilisateur.php — Modèle de gestion des utilisateurs
+// models/Utilisateur.php — ...
 // ============================================================
 
 require_once 'models/Model.php';
