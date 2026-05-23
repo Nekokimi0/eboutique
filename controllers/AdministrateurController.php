@@ -25,13 +25,10 @@ class AdministrateurController {
                 exit();
             }
             else {
-                header('Location: index.php?page=login&erreur=1');
-                exit();
+                $erreur = "Identifiants incorrects.";
             }
         }
-        else {
-            require 'views/admin/login.php';
-        }
+        require 'views/admin/login.php';
     }
 
     public function deconnexion() {
