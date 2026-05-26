@@ -14,6 +14,7 @@ class UtilisateurController {
     }
 
     public function connexion() {
+        $erreur = null;
         if (isset($_POST['mail'], $_POST['mot_de_passe'])) {
             $mail = $_POST['mail'];
             $mot_de_passe = $_POST['mot_de_passe'];
@@ -32,24 +33,30 @@ class UtilisateurController {
     }
 
     public function inscription() {
-        if (isset($_POST['mail'], $_POST['mot_de_passe'])) {
-            $existant = $this->modele->getByMail($_POST['mail']);
-            if ($existant) {
-                $erreur = "Cette adresse mail est déjà utilisée.";
-            }
+        $erreur = null;
+        if (isset($_POST['mail'], $_POST['mot_de_passe'], $_POST['mot_de_passe_confirm'])) {
+            if ($_POST['mot_de_passe'] !== $_POST['mot_de_passe_confirm']) {
+                $erreur = "Les mots de passe ne correspondent pas.";
+            } 
             else {
-                $mot_de_passe = password_hash($_POST['mot_de_passe'], PASSWORD_BCRYPT);
-                $data = [
-                    ':nom' => $_POST['nom'],
-                    ':prenom' => $_POST['prenom'],
-                    ':mail' => $_POST['mail'],
-                    ':telephone' => $_POST['telephone'] ?? null,
-                    ':adresse' => $_POST['adresse'] ?? null,
-                    ':mot_de_passe' => $mot_de_passe
-                ];
-                $this->modele->insert($data);
-                header('Location: index.php?page=connexion');
-                exit();
+                $existant = $this->modele->getByMail($_POST['mail']);
+                if ($existant) {
+                    $erreur = "Cette adresse mail est déjà utilisée.";
+                }
+                else {
+                    $mot_de_passe = password_hash($_POST['mot_de_passe'], PASSWORD_BCRYPT);
+                    $data = [
+                        ':nom' => $_POST['nom'],
+                        ':prenom' => $_POST['prenom'],
+                        ':mail' => $_POST['mail'],
+                        ':telephone' => $_POST['telephone'] ?? null,
+                        ':adresse' => $_POST['adresse'] ?? null,
+                        ':mot_de_passe' => $mot_de_passe
+                    ];
+                    $this->modele->insert($data);
+                    header('Location: index.php?page=connexion');
+                    exit();
+                }
             }
         }
         require 'views/client/inscription.php';
