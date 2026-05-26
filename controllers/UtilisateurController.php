@@ -60,5 +60,12 @@ class UtilisateurController {
         header('Location: index.php?page=connexion');
         exit();
     }
+
+    private function requireUtilisateur() {
+        if (!isset($_SESSION['utilisateur_id'])) {
+            header('Location: index.php?page=connexion');
+            exit();
+        }
+    }
 }
 ?>
