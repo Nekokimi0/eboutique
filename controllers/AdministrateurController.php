@@ -14,6 +14,7 @@ class AdministrateurController {
     }
 
     public function connexion() {
+        $erreur = null;
         if (isset($_POST['login'], $_POST['mot_de_passe'])) {
             $login = $_POST['login'];
             $mot_de_passe = $_POST['mot_de_passe'];
