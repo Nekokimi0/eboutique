@@ -36,5 +36,12 @@ class AdministrateurController {
         header('Location: index.php?page=login');
         exit();
     }
+
+    private function requireAdmin() {
+        if (!isset($_SESSION['administrateur_id'])) {
+            header('Location: index.php?page=login');
+            exit();
+        }
+    }
 }
 ?>
