@@ -7,6 +7,8 @@ session_start();
 
 require_once 'controllers/UtilisateurController.php';
 require_once 'controllers/AdministrateurController.php';
+require_once 'controllers/ProduitController.php';
+require_once 'controllers/CommandeController.php';
 
 $page = $_GET['page'] ?? 'accueil';
 
@@ -15,10 +17,39 @@ switch ($page) {
     case 'accueil':
         require 'views/accueil/index.php';
         break;
+
+    case 'catalogue':
+        $controller = new ProduitController();
+        $controller->catalogue();
+        break;
+
+    case 'produit':
+        $controller = new ProduitController();
+        $controller->fiche($_GET['id'] ?? null);
+        break;
     
     case 'connexion':
         $controller = new UtilisateurController();
         $controller->connexion();
+        break;
+
+    case 'panier':
+        $controller = new CommandeController();
+        $action = $_GET['action'] ?? 'afficher';
+        if ($action === 'ajouter') {
+            $controller->ajouterAuPanier();
+        } elseif ($action === 'supprimer') {
+            $controller->supprimerDuPanier();
+        } elseif ($action === 'valider') {
+            $controller->validerCommande();
+        } else {
+            $controller->afficherPanier();
+        }
+        break;
+
+    case 'commandes':
+        $controller = new CommandeController();
+        $controller->mesCommandes();
         break;
 
     case 'inscription':
