@@ -40,5 +40,9 @@ class Commande extends Model {
         return $requete->execute([":id_commande" => $id, ":statut_livraison" => $statut_livraison]);
     }
 
+    public function lastInsertId() {
+        return $this->pdo->lastInsertId();
+    }
+
 }
 ?>
