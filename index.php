@@ -52,6 +52,39 @@ switch ($page) {
         $controller->mesCommandes();
         break;
 
+    case 'dashboard':
+        $controller = new AdministrateurController();
+        $controller->dashboard();
+        break;
+
+    case 'admin_produits':
+        $controller = new AdministrateurController();
+        $action = $_GET['action'] ?? 'liste';
+        if ($action === 'ajouter') {
+            $controller->ajouterProduit();
+        } elseif ($action === 'modifier') {
+            $controller->modifierProduit($_GET['id'] ?? null);
+        } elseif ($action === 'supprimer') {
+            $controller->supprimerProduit($_GET['id'] ?? null);
+        } else {
+            $controller->listeProduits();
+        }
+        break;
+
+    case 'admin_categories':
+        $controller = new AdministrateurController();
+        $action = $_GET['action'] ?? 'liste';
+        if ($action === 'ajouter') {
+            $controller->ajouterCategorie();
+        } elseif ($action === 'modifier') {
+            $controller->modifierCategorie($_GET['id'] ?? null);
+        } elseif ($action === 'supprimer') {
+            $controller->supprimerCategorie($_GET['id'] ?? null);
+        } else {
+            $controller->listeCategories();
+        }
+        break;
+
     case 'inscription':
         $controller = new UtilisateurController();
         $controller->inscription();
