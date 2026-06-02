@@ -142,6 +142,26 @@ class AdministrateurController {
         exit();
     }
 
+    public function listeCommandes() {
+        $this->requireAdmin();
+        $commandes = $this->modeleCommande->getAll();
+        require 'views/admin/commandes.php';
+    }
+
+    public function updateStatutCommande($id, $statut) {
+        $this->requireAdmin();
+        $this->modeleCommande->updateStatut($id, $statut);
+        header('Location: index.php?page=admin_commandes');
+        exit();
+    }
+
+    public function updateStatutLivraison($id, $statut_livraison) {
+        $this->requireAdmin();
+        $this->modeleCommande->updateStatutLivraison($id, $statut_livraison);
+        header('Location: index.php?page=admin_commandes');
+        exit();
+    }
+
     private function requireAdmin() {
         if (!isset($_SESSION['administrateur_id'])) {
             header('Location: index.php?page=login');
