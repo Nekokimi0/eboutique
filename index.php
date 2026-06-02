@@ -85,6 +85,18 @@ switch ($page) {
         }
         break;
 
+    case 'admin_commandes':
+        $controller = new AdministrateurController();
+        $action = $_GET['action'] ?? 'liste';
+        if ($action === 'statut') {
+            $controller->updateStatutCommande($_GET['id'] ?? null, $_GET['statut'] ?? null);
+        } elseif ($action === 'livraison') {
+            $controller->updateStatutLivraison($_GET['id'] ?? null, $_GET['statut'] ?? null);
+        } else {
+            $controller->listeCommandes();
+        }
+        break;
+
     case 'inscription':
         $controller = new UtilisateurController();
         $controller->inscription();
