@@ -52,6 +52,9 @@ class AdministrateurController {
         $produits = $this->modeleProduit->getAll();
         $commandes = $this->modeleCommande->getAll();
         $stock_faible = $this->modeleProduit->getStockFaible(5);
+        $chiffre_affaires = $this->modeleCommande->getChiffreAffaires();
+        $commandes_par_mois = $this->modeleCommande->getCommandesParMois();
+        $plus_vendus = $this->modeleProduit->getPlusVendus();
         require 'views/admin/dashboard.php';
     }
 
