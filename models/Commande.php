@@ -25,6 +25,18 @@ class Commande extends Model {
         return $requete->fetchAll();
     }
 
+    public function getChiffreAffaires() {
+        $requete = $this->pdo->prepare("SELECT SUM(prix_total) AS chiffre_affaires FROM Commande");
+        $requete->execute();
+        return $requete->fetch();
+    }
+
+    public function getCommandesParMois() {
+        $requete = $this->pdo->prepare("SELECT MONTH(date) AS mois, COUNT(*) AS nombre FROM Commande GROUP BY MONTH(date)");
+        $requete->execute();
+        return $requete->fetchAll();
+    }
+
     public function insert($data) {
         $requete = $this->pdo->prepare("INSERT INTO Commande (date, statut, statut_livraison, prix_total, id_utilisateur) VALUES(:date, :statut, :statut_livraison, :prix_total, :id_utilisateur)");
         return $requete->execute($data);
