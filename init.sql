@@ -1,5 +1,5 @@
 CREATE TABLE Administrateur (
-    id_admin INT AUTO_INCREMENT,
+    id_administrateur INT AUTO_INCREMENT,
     login VARCHAR(50) NOT NULL,
     mot_de_passe VARCHAR(255) NOT NULL,
 
