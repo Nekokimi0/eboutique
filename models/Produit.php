@@ -25,6 +25,18 @@ class Produit extends Model {
         return $requete->fetchAll();
     }
 
+    public function getStockFaible($seuil) {
+        $requete = $this->pdo->prepare("SELECT * FROM Produit WHERE quantite < :quantite");
+        $requete->execute([":quantite" => $seuil]);
+        return $requete->fetchAll();
+    }
+
+    public function getPlusVendus() {
+        $requete = $this->pdo->prepare("SELECT Produit.nom, SUM(Ligne_Commande.quantite) AS total_vendu FROM Produit JOIN Ligne_Commande ON Produit.id_produit = Ligne_Commande.id_produit GROUP BY Produit.id_produit ORDER BY total_vendu DESC LIMIT 5");
+        $requete->execute();
+        return $requete->fetchAll();
+    }
+
     public function insert($data) {
         $requete = $this->pdo->prepare("INSERT INTO Produit (nom, image, prix, quantite, description, id_categorie_produit) VALUES(:nom, :image, :prix, :quantite, :description, :id_categorie_produit)");
         return $requete->execute($data);
@@ -44,12 +56,6 @@ class Produit extends Model {
     public function updateStock($id, $quantite) {
         $requete = $this->pdo->prepare("UPDATE Produit SET quantite = :quantite WHERE id_produit = :id_produit");
         return $requete->execute([":id_produit" => $id, ":quantite" => $quantite]);
-    }
-
-    public function getStockFaible($seuil) {
-        $requete = $this->pdo->prepare("SELECT * FROM Produit WHERE quantite < :quantite");
-        $requete->execute([":quantite" => $seuil]);
-        return $requete->fetchAll();
     }
 
 }
