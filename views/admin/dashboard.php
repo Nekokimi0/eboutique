@@ -4,6 +4,16 @@
 // ============================================================
 
 require 'views/templates/header.php';
+
+// Préparer les données pour Chart.js
+$labels_mois = ['Jan', 'Fév', 'Mar', 'Avr', 'Mai', 'Jun', 'Jul', 'Aoû', 'Sep', 'Oct', 'Nov', 'Déc'];
+$data_mois = array_fill(0, 12, 0);
+foreach ($commandes_par_mois as $row) {
+    $data_mois[$row['mois'] - 1] = $row['nombre'];
+}
+
+$labels_produits = array_column($plus_vendus, 'nom');
+$data_produits = array_column($plus_vendus, 'total_vendu');
 ?>
 
 <section class="dashboard">
@@ -20,8 +30,24 @@ require 'views/templates/header.php';
             <p>Commandes</p>
         </div>
         <div class="stat-card">
+            <h2><?= number_format($chiffre_affaires['chiffre_affaires'] ?? 0, 2) ?> €</h2>
+            <p>Chiffre d'affaires</p>
+        </div>
+        <div class="stat-card">
             <h2><?= count($stock_faible) ?></h2>
             <p>Alertes stock</p>
+        </div>
+    </div>
+
+    <!-- Graphiques -->
+    <div class="graphiques">
+        <div class="graphique-card">
+            <h2>Commandes par mois</h2>
+            <canvas id="graphiqueCommandes"></canvas>
+        </div>
+        <div class="graphique-card">
+            <h2>Produits les plus vendus</h2>
+            <canvas id="graphiqueProduits"></canvas>
         </div>
     </div>
 
@@ -54,9 +80,56 @@ require 'views/templates/header.php';
         <a href="index.php?page=admin_categories">Gérer les catégories</a>
         <a href="index.php?page=admin_commandes">Gérer les commandes</a>
     </div>
-
 </section>
 
+<!-- Chart.js -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    // Données passées depuis PHP
+    const labelsMois = <?= json_encode($labels_mois) ?>;
+    const dataMois = <?= json_encode($data_mois) ?>;
+    const labelsProduits = <?= json_encode($labels_produits) ?>;
+    const dataProduits = <?= json_encode($data_produits) ?>;
+
+    // Graphique commandes par mois
+    new Chart(document.getElementById('graphiqueCommandes'), {
+        type: 'line',
+        data: {
+            labels: labelsMois,
+            datasets: [{
+                label: 'Commandes',
+                data: dataMois,
+                borderColor: '#185FA5',
+                backgroundColor: 'rgba(24, 95, 165, 0.1)',
+                tension: 0.3,
+                fill: true
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: { legend: { display: false } }
+        }
+    });
+
+    // Graphique produits les plus vendus
+    new Chart(document.getElementById('graphiqueProduits'), {
+        type: 'bar',
+        data: {
+            labels: labelsProduits,
+            datasets: [{
+                label: 'Quantité vendue',
+                data: dataProduits,
+                backgroundColor: 'rgba(24, 95, 165, 0.7)',
+                borderRadius: 6
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: { legend: { display: false } }
+        }
+    });
+</script>
+
 <?php
-require 'views/templates/footer.php';
+require 'views/templates/footer.php'; 
 ?>
