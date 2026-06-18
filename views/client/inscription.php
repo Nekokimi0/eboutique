@@ -26,15 +26,17 @@
             <?php endif; ?>
 
             <form method="POST" action="index.php?page=inscription">
-                <input type="text" name="nom" placeholder="Nom" required>
-                <input type="text" name="prenom" placeholder="Prénom" required>
+                <input type="text" name="nom" placeholder="Nom *" required>
+                <input type="text" name="prenom" placeholder="Prénom *" required>
                 <input type="tel" name="telephone" placeholder="Téléphone">
                 <input type="text" name="adresse" placeholder="Adresse">
-                <input type="email" name="mail" placeholder="E-mail" required>
-                <input type="password" name="mot_de_passe" placeholder="Mot de passe" required>
+                <input type="email" name="mail" placeholder="E-mail *" required>
+                <input type="password" name="mot_de_passe" placeholder="Mot de passe *" required>
                 <input type="password" name="mot_de_passe_confirm" placeholder="Confirmer le mot de passe" required>
                 <button type="submit">Créer un compte →</button>
             </form>
+
+            <p class="mention-obligatoire">* Champs obligatoires</p>
 
             <a href="index.php?page=connexion">Déjà un compte ?</a>
         </div>
