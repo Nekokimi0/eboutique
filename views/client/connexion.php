@@ -27,10 +27,17 @@
             <?php endif; ?>
 
             <form method="POST" action="index.php?page=connexion">
-                <input type="email" name="mail" placeholder="E-mail" required>
-                <input type="password" name="mot_de_passe" placeholder="Mot de passe" required>
+                <div class="form-group">
+                    <label>E-mail <span class="obligatoire">*</span></label>
+                    <input type="email" name="mail" placeholder="Votre e-mail" required>
+                </div>
+                <div class="form-group">
+                    <label>Mot de passe <span class="obligatoire">*</span></label>
+                    <input type="password" name="mot_de_passe" placeholder="Votre mot de passe" required>
+                </div>
                 <button type="submit">Se connecter →</button>
             </form>
+            <p class="mention-obligatoire"><span class="obligatoire">*</span> Champs obligatoires</p>
 
             <a href="index.php?page=inscription">Pas encore de compte ?</a>
         </div>
