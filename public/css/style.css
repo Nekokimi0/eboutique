@@ -178,6 +178,15 @@ body.page-auth {
     margin-top: -4px;
 }
 
+.obligatoire { color: var(--c-danger); }
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    text-align: left;
+}
+
 /* ── Hero (Accueil) ─────────────────────────────────────── */
 .hero {
     text-align: center;
