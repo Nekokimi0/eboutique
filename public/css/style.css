@@ -171,6 +171,13 @@ body.page-auth {
 }
 .auth-container > a:hover { color: var(--c-accent); }
 
+.mention-obligatoire {
+    font-size: .8rem;
+    color: var(--c-subtle);
+    text-align: left;
+    margin-top: -4px;
+}
+
 /* ── Hero (Accueil) ─────────────────────────────────────── */
 .hero {
     text-align: center;
