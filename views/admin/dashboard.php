@@ -17,12 +17,12 @@ $data_produits = array_column($plus_vendus, 'total_vendu');
 ?>
 
 <section class="dashboard">
-    
-    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 32px;">
+
+    <div class="dashboard-header">
         <h1>Tableau de bord</h1>
         <a href="index.php?page=deconnexion">Se déconnecter</a>
     </div>
-    
+
     <!-- Statistiques générales -->
     <div class="stats">
         <div class="stat-card">
@@ -89,13 +89,11 @@ $data_produits = array_column($plus_vendus, 'total_vendu');
 <!-- Chart.js -->
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
-    // Données passées depuis PHP
     const labelsMois = <?= json_encode($labels_mois) ?>;
     const dataMois = <?= json_encode($data_mois) ?>;
     const labelsProduits = <?= json_encode($labels_produits) ?>;
     const dataProduits = <?= json_encode($data_produits) ?>;
 
-    // Graphique commandes par mois
     new Chart(document.getElementById('graphiqueCommandes'), {
         type: 'line',
         data: {
@@ -115,7 +113,6 @@ $data_produits = array_column($plus_vendus, 'total_vendu');
         }
     });
 
-    // Graphique produits les plus vendus
     new Chart(document.getElementById('graphiqueProduits'), {
         type: 'bar',
         data: {
@@ -135,5 +132,5 @@ $data_produits = array_column($plus_vendus, 'total_vendu');
 </script>
 
 <?php
-require 'views/templates/footer.php'; 
+require 'views/templates/footer.php';
 ?>
