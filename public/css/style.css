@@ -412,14 +412,14 @@ body.page-auth {
 }
 
 /* ── Admin ──────────────────────────────────────────────── */
-.dashboard h1,
+.dashboard-header h1,
 .admin-produits h1,
 .admin-categories h1,
 .admin-commandes h1,
 .admin-form h1 {
     font-size: 1.8rem;
     font-weight: 700;
-    margin-bottom: 32px;
+    margin-bottom: 0;
 }
 
 .dashboard-header {
