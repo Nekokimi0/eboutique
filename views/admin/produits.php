@@ -7,6 +7,7 @@ require 'views/templates/header.php';
 ?>
 
 <section class="admin-produits">
+    <a href="index.php?page=dashboard">← Retour au dashboard</a>
     <h1>Gestion des produits</h1>
     <a href="index.php?page=admin_produits&action=ajouter">+ Ajouter un produit</a>
 
