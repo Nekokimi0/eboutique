@@ -67,6 +67,7 @@ class AdministrateurController {
 
     public function ajouterProduit() {
         $this->requireAdmin();
+        $categories = $this->modeleCategorieProduit->getAll();
         if (isset($_POST['nom'])) {
             $data = [
                 ':nom' => $_POST['nom'],
@@ -86,6 +87,7 @@ class AdministrateurController {
     public function modifierProduit($id) {
         $this->requireAdmin();
         $produit = $this->modeleProduit->getById($id);
+        $categories = $this->modeleCategorieProduit->getAll();
         if (isset($_POST['nom'])) {
             $data = [
                 ':nom' => $_POST['nom'],
