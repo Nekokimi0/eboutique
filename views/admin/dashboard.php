@@ -17,8 +17,12 @@ $data_produits = array_column($plus_vendus, 'total_vendu');
 ?>
 
 <section class="dashboard">
-    <h1>Tableau de bord</h1>
-
+    
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 32px;">
+        <h1>Tableau de bord</h1>
+        <a href="index.php?page=deconnexion">Se déconnecter</a>
+    </div>
+    
     <!-- Statistiques générales -->
     <div class="stats">
         <div class="stat-card">
