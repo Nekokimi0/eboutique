@@ -7,6 +7,7 @@ require 'views/templates/header.php';
 ?>
 
 <section class="admin-commandes">
+    <a href="index.php?page=dashboard">← Retour au dashboard</a>
     <h1>Gestion des commandes</h1>
 
     <?php if (empty($commandes)): ?>
