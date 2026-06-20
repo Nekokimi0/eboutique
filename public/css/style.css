@@ -421,16 +421,17 @@ body.page-auth {
     font-weight: 700;
     margin-bottom: 0;
 }
-
 .dashboard-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin-bottom: 32px;
 }
-.dashboard-header a {
+.dashboard-header a,
+.dashboard-header a:link,
+.dashboard-header a:visited {
     background: var(--c-danger);
-    color: #fff;
+    color: #fff !important;
     padding: 8px 16px;
     border-radius: var(--radius);
     font-size: .85rem;
@@ -438,7 +439,7 @@ body.page-auth {
 }
 .dashboard-header a:hover {
     background: #B91C1C;
-    color: #fff;
+    color: #fff !important;
 }
 
 /* Stats dashboard */
