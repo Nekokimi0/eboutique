@@ -422,6 +422,25 @@ body.page-auth {
     margin-bottom: 32px;
 }
 
+.dashboard-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 32px;
+}
+.dashboard-header a {
+    background: var(--c-danger);
+    color: #fff;
+    padding: 8px 16px;
+    border-radius: var(--radius);
+    font-size: .85rem;
+    font-weight: 600;
+}
+.dashboard-header a:hover {
+    background: #B91C1C;
+    color: #fff;
+}
+
 /* Stats dashboard */
 .stats {
     display: grid;
