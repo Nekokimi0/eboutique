@@ -7,6 +7,7 @@ require 'views/templates/header.php';
 ?>
 
 <section class="admin-categories">
+    <a href="index.php?page=dashboard">← Retour au dashboard</a>
     <h1>Gestion des catégories</h1>
     <a href="index.php?page=admin_categories&action=ajouter">+ Ajouter une catégorie</a>
 
