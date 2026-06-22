@@ -28,7 +28,6 @@
                         <li><a href="index.php?page=connexion">Se connecter</a></li>
                         <li><a href="index.php?page=inscription">S'inscrire</a></li>
                     <?php endif; ?>
-                    <?php endif; ?>
                 </ul>
             </nav>
         </header>
