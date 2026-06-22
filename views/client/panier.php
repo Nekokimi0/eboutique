@@ -9,6 +9,8 @@ require 'views/templates/header.php';
 <section class="panier">
     <h1>Mon panier</h1>
 
+    <p><?= array_sum(array_column($panier, 'quantite')) ?> article(s) dans votre panier</p>
+
     <?php if (empty($panier)): ?>
         <p>Votre panier est vide.</p>
         <a href="index.php?page=catalogue">← Retour au catalogue</a>
