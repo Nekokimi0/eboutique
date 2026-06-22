@@ -626,3 +626,40 @@ body.page-auth {
     .hero h1 { font-size: 2rem; }
     main { padding: 32px 16px; }
 }
+
+/* ── Accordéon commandes ────────────────────────────────── */
+.commande-row {
+    cursor: pointer;
+    transition: background var(--transition);
+}
+.commande-row:hover { background: var(--c-bg-soft); }
+.toggle-icon {
+    color: var(--c-accent);
+    font-size: .8rem;
+    text-align: center;
+}
+.commande-details {
+    display: none;
+    background: var(--c-bg-soft);
+}
+.commande-details.open { display: table-row; }
+.lignes-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 8px 0;
+}
+.lignes-table th {
+    text-align: left;
+    padding: 8px 12px;
+    font-size: .8rem;
+    color: var(--c-subtle);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    border-bottom: 1px solid var(--c-border);
+}
+.lignes-table td {
+    padding: 8px 12px;
+    font-size: .85rem;
+    border-bottom: 1px solid var(--c-border);
+}
