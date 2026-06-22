@@ -49,7 +49,7 @@ require 'views/templates/header.php';
                                 <tbody>
                                     <?php foreach ($commande['lignes'] as $ligne): ?>
                                         <tr>
-                                            <td><?= $ligne['id_produit'] ?></td>
+                                            <td><?= $ligne['nom'] ?></td>
                                             <td><?= $ligne['prix'] ?> €</td>
                                             <td><?= $ligne['quantite'] ?></td>
                                             <td><?= $ligne['prix'] * $ligne['quantite'] ?> €</td>
