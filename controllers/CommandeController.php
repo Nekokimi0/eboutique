@@ -99,6 +99,9 @@ class CommandeController {
             exit();
         }
         $commandes = $this->modeleCommande->getByUtilisateur($_SESSION['utilisateur_id']);
+        foreach ($commandes as &$commande) {
+            $commande['lignes'] = $this->modeleLigneCommande->getByCommande($commande['id_commande']);
+        }
         require 'views/client/commandes.php';
     }
 
