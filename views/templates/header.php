@@ -22,10 +22,12 @@
                     <?php $nb_articles = isset($_SESSION['panier']) ? array_sum(array_column($_SESSION['panier'], 'quantite')) : 0; ?>
                         <li><a href="index.php?page=panier">Panier <?php if ($nb_articles > 0): ?>(<?= $nb_articles ?>)<?php endif; ?></a></li>
                     <?php if (isset($_SESSION['utilisateur_id'])): ?>
+                        <li><a href="index.php?page=commandes">Mes commandes</a></li>
                         <li><a href="index.php?page=deconnexion">Se déconnecter</a></li>
                     <?php else: ?>
                         <li><a href="index.php?page=connexion">Se connecter</a></li>
                         <li><a href="index.php?page=inscription">S'inscrire</a></li>
+                    <?php endif; ?>
                     <?php endif; ?>
                 </ul>
             </nav>
