@@ -30,27 +30,27 @@ require 'views/templates/header.php';
                         <td>#<?= $commande['id_commande'] ?></td>
                         <td><?= $commande['date'] ?></td>
                         <td><?= $commande['prix_total'] ?> €</td>
-                        <td>
-                            <?php if ($commande['statut'] === 'En attente'): ?>
-                                <a href="...&statut=Accepte">Accepter</a>
-                                <a href="...&statut=Refuse" onclick="return confirm('Confirmer le refus ?')">Refuser</a>
-                            <?php endif; ?>
-
-                            <?php if ($commande['statut'] === 'Accepte' && $commande['statut_livraison'] !== 'Livre'): ?>
-                                <a href="...&statut=Livre" onclick="return confirm('Marquer comme livré ?')">Marquer livré</a>
-                            <?php endif; ?>
-
-                            <?php if ($commande['statut'] === 'Livre' || ($commande['statut'] === 'Refuse')): ?>
-                                <span style="color: var(--c-subtle); font-size: .85rem;">Aucune action</span>
-                            <?php endif; ?>
-                        </td>
+                        <td><?= $commande['statut'] ?></td>
                         <td><?= $commande['statut_livraison'] ?></td>
                         <td>
-                            <!-- Changer le statut de la commande -->
-                            <a href="index.php?page=admin_commandes&action=statut&id=<?= $commande['id_commande'] ?>&statut=Accepte">Accepter</a>
-                            <a href="index.php?page=admin_commandes&action=statut&id=<?= $commande['id_commande'] ?>&statut=Refuse">Refuser</a>
-                            <!-- Changer le statut de livraison -->
-                            <a href="index.php?page=admin_commandes&action=livraison&id=<?= $commande['id_commande'] ?>&statut=Livre">Marquer livré</a>
+                            <?php if ($commande['statut'] === 'En attente'): ?>
+                                <a href="index.php?page=admin_commandes&action=statut&id=<?= $commande['id_commande'] ?>&statut=Accepte"
+                                   onclick="return confirm('Confirmer l\'acceptation de la commande #<?= $commande['id_commande'] ?> ?')">
+                                    Accepter
+                                </a>
+                                <a href="index.php?page=admin_commandes&action=statut&id=<?= $commande['id_commande'] ?>&statut=Refuse"
+                                   onclick="return confirm('Confirmer le refus de la commande #<?= $commande['id_commande'] ?> ?')"
+                                   style="color: var(--c-danger);">
+                                    Refuser
+                                </a>
+                            <?php elseif ($commande['statut'] === 'Accepte' && $commande['statut_livraison'] !== 'Livre'): ?>
+                                <a href="index.php?page=admin_commandes&action=livraison&id=<?= $commande['id_commande'] ?>&statut=Livre"
+                                   onclick="return confirm('Marquer la commande #<?= $commande['id_commande'] ?> comme livrée ?')">
+                                    Marquer livré
+                                </a>
+                            <?php else: ?>
+                                <span style="color: var(--c-subtle); font-size: .85rem;">Aucune action</span>
+                            <?php endif; ?>
                         </td>
                     </tr>
                 <?php endforeach; ?>
