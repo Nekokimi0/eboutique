@@ -30,7 +30,20 @@ require 'views/templates/header.php';
                         <td>#<?= $commande['id_commande'] ?></td>
                         <td><?= $commande['date'] ?></td>
                         <td><?= $commande['prix_total'] ?> €</td>
-                        <td><?= $commande['statut'] ?></td>
+                        <td>
+                            <?php if ($commande['statut'] === 'En attente'): ?>
+                                <a href="...&statut=Accepte">Accepter</a>
+                                <a href="...&statut=Refuse" onclick="return confirm('Confirmer le refus ?')">Refuser</a>
+                            <?php endif; ?>
+
+                            <?php if ($commande['statut'] === 'Accepte' && $commande['statut_livraison'] !== 'Livre'): ?>
+                                <a href="...&statut=Livre" onclick="return confirm('Marquer comme livré ?')">Marquer livré</a>
+                            <?php endif; ?>
+
+                            <?php if ($commande['statut'] === 'Livre' || ($commande['statut'] === 'Refuse')): ?>
+                                <span style="color: var(--c-subtle); font-size: .85rem;">Aucune action</span>
+                            <?php endif; ?>
+                        </td>
                         <td><?= $commande['statut_livraison'] ?></td>
                         <td>
                             <!-- Changer le statut de la commande -->
