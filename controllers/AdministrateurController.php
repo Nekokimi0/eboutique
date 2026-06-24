@@ -156,8 +156,8 @@ class AdministrateurController {
     public function updateStatutCommande($id, $statut) {
         $this->requireAdmin();
         $this->modeleCommande->updateStatut($id, $statut);
-        if ($statut === 'Refusé') {
-            $this->modeleCommande->updateStatutLivraison($id, 'Non livré');
+        if ($statut === 'Refuse') {
+            $this->modeleCommande->updateStatutLivraison($id, 'Non livre');
         }
         header('Location: index.php?page=admin_commandes');
         exit();
