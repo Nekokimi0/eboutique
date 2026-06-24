@@ -66,6 +66,9 @@ switch ($page) {
             $controller->modifierProduit($_GET['id'] ?? null);
         } elseif ($action === 'supprimer') {
             $controller->supprimerProduit($_GET['id'] ?? null);
+        } 
+        elseif ($action === 'stock') {
+            $controller->ajouterStock($_GET['id'] ?? null);
         } else {
             $controller->listeProduits();
         }
