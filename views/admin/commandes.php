@@ -56,7 +56,9 @@ require 'views/templates/header.php';
                             <?php endif; ?>
                         </td>
                         <td>
-                            <?php if ($commande['statut_livraison'] === 'Livré'): ?>
+                            <?php if ($commande['statut'] === 'Refusé'): ?>
+                                <span class="badge badge-danger">Non livré</span>
+                            <?php elseif ($commande['statut_livraison'] === 'Livré'): ?>
                                 <span class="badge badge-success"><?= $commande['statut_livraison'] ?></span>
                             <?php elseif ($commande['statut_livraison'] === 'Non livré'): ?>
                                 <span class="badge badge-danger"><?= $commande['statut_livraison'] ?></span>
