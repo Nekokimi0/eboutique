@@ -64,6 +64,7 @@ $data_produits = array_column($plus_vendus, 'total_vendu');
                     <tr>
                         <th>Produit</th>
                         <th>Stock restant</th>
+                        <th>Ajouter du stock</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -71,6 +72,14 @@ $data_produits = array_column($plus_vendus, 'total_vendu');
                         <tr>
                             <td><?= $produit['nom'] ?></td>
                             <td><?= $produit['quantite'] ?></td>
+                            <td>
+                                <form method="POST" action="index.php?page=admin_produits&action=stock&id=<?= $produit['id_produit'] ?>">
+                                    <input type="number" name="quantite_ajout" min="1" value="1" style="width: 60px; padding: 4px 8px; border: 1px solid var(--c-border); border-radius: var(--radius);">
+                                    <button type="submit" style="background: var(--c-accent); color: #fff; border: none; padding: 4px 12px; border-radius: var(--radius); cursor: pointer; margin-left: 6px;">
+                                        Ajouter
+                                    </button>
+                                </form>
+                            </td>
                         </tr>
                     <?php endforeach; ?>
                 </tbody>
