@@ -170,6 +170,16 @@ class AdministrateurController {
         exit();
     }
 
+    public function ajouterStock($id) {
+        $this->requireAdmin();
+        $quantite_ajout = $_POST['quantite_ajout'];
+        $produit = $this->modeleProduit->getById($id);
+        $nouveau_stock = $produit['quantite'] + $quantite_ajout;
+        $this->modeleProduit->updateStock($id, $nouveau_stock);
+        header('Location: index.php?page=dashboard');
+        exit();
+    }
+    
     private function requireAdmin() {
         if (!isset($_SESSION['administrateur_id'])) {
             header('Location: index.php?page=login');
