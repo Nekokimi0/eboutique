@@ -1,6 +1,7 @@
 <?php
 // ============================================================
-// controllers/AdministrateurController.php - ...
+// controllers/AdministrateurController.php
+// Gère : authentification admin, produits, catégories, commandes
 // ============================================================
 
 require_once 'models/Administrateur.php';
@@ -15,12 +16,14 @@ class AdministrateurController {
     private $modeleCategorieProduit;
     private $modeleCommande;
 
-    function __construct() {
+    public function __construct() {
         $this->modele = new Administrateur();
         $this->modeleProduit = new Produit();
         $this->modeleCategorieProduit = new CategorieProduit();
         $this->modeleCommande = new Commande();
     }
+
+    // ── Authentification ─────────────────────────────────────
 
     public function connexion() {
         $erreur = null;
@@ -33,8 +36,7 @@ class AdministrateurController {
                 $_SESSION['administrateur_login'] = $administrateur['login'];
                 header('Location: index.php?page=dashboard');
                 exit();
-            }
-            else {
+            } else {
                 $erreur = "Identifiants incorrects.";
             }
         }
@@ -47,6 +49,8 @@ class AdministrateurController {
         exit();
     }
 
+    // ── Dashboard ────────────────────────────────────────────
+
     public function dashboard() {
         $this->requireAdmin();
         $produits = $this->modeleProduit->getAll();
@@ -57,6 +61,8 @@ class AdministrateurController {
         $plus_vendus = $this->modeleProduit->getPlusVendus();
         require 'views/admin/dashboard.php';
     }
+
+    // ── Gestion des produits ─────────────────────────────────
 
     public function listeProduits() {
         $this->requireAdmin();
@@ -86,7 +92,7 @@ class AdministrateurController {
 
     public function modifierProduit($id) {
         $this->requireAdmin();
-        $produit = $this->modeleProduit->getById($id);
+        $produit    = $this->modeleProduit->getById($id);
         $categories = $this->modeleCategorieProduit->getAll();
         if (isset($_POST['nom'])) {
             $data = [
@@ -111,6 +117,18 @@ class AdministrateurController {
         exit();
     }
 
+    public function ajouterStock($id) {
+        $this->requireAdmin();
+        $quantite_ajout = $_POST['quantite_ajout'];
+        $produit = $this->modeleProduit->getById($id);
+        $nouveau_stock = $produit['quantite'] + $quantite_ajout;
+        $this->modeleProduit->updateStock($id, $nouveau_stock);
+        header('Location: index.php?page=dashboard');
+        exit();
+    }
+
+    // ── Gestion des catégories ───────────────────────────────
+
     public function listeCategories() {
         $this->requireAdmin();
         $categories = $this->modeleCategorieProduit->getAll();
@@ -119,7 +137,7 @@ class AdministrateurController {
 
     public function ajouterCategorie() {
         $this->requireAdmin();
-            if (isset($_POST['nom'])) {
+        if (isset($_POST['nom'])) {
             $data = [':nom' => $_POST['nom']];
             $this->modeleCategorieProduit->insert($data);
             header('Location: index.php?page=admin_categories');
@@ -147,6 +165,8 @@ class AdministrateurController {
         exit();
     }
 
+    // ── Gestion des commandes ────────────────────────────────
+
     public function listeCommandes() {
         $this->requireAdmin();
         $commandes = $this->modeleCommande->getAll();
@@ -170,16 +190,8 @@ class AdministrateurController {
         exit();
     }
 
-    public function ajouterStock($id) {
-        $this->requireAdmin();
-        $quantite_ajout = $_POST['quantite_ajout'];
-        $produit = $this->modeleProduit->getById($id);
-        $nouveau_stock = $produit['quantite'] + $quantite_ajout;
-        $this->modeleProduit->updateStock($id, $nouveau_stock);
-        header('Location: index.php?page=dashboard');
-        exit();
-    }
-    
+    // ── Utilitaire ───────────────────────────────────────────
+
     private function requireAdmin() {
         if (!isset($_SESSION['administrateur_id'])) {
             header('Location: index.php?page=login');
