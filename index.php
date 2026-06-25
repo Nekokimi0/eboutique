@@ -1,6 +1,6 @@
 <?php
 // ============================================================
-// index.php — ...
+// index.php — Routeur principal (point d'entrée unique)
 // ============================================================
 
 session_start();
@@ -13,6 +13,8 @@ require_once 'controllers/CommandeController.php';
 $page = $_GET['page'] ?? 'accueil';
 
 switch ($page) {
+
+    // ── Pages publiques ──────────────────────────────────────
 
     case 'accueil':
         require 'views/accueil/index.php';
@@ -27,11 +29,38 @@ switch ($page) {
         $controller = new ProduitController();
         $controller->fiche($_GET['id'] ?? null);
         break;
-    
+
+    // ── Authentification ─────────────────────────────────────
+
     case 'connexion':
         $controller = new UtilisateurController();
         $controller->connexion();
         break;
+
+    case 'inscription':
+        $controller = new UtilisateurController();
+        $controller->inscription();
+        break;
+
+    case 'login':
+        $controller = new AdministrateurController();
+        $controller->connexion();
+        break;
+
+    case 'deconnexion':
+        if (isset($_SESSION['administrateur_id'])) {
+            $controller = new AdministrateurController();
+            $controller->deconnexion();
+        } elseif (isset($_SESSION['utilisateur_id'])) {
+            $controller = new UtilisateurController();
+            $controller->deconnexion();
+        } else {
+            header('Location: index.php?page=connexion');
+            exit();
+        }
+        break;
+
+    // ── Espace client ────────────────────────────────────────
 
     case 'panier':
         $controller = new CommandeController();
@@ -52,6 +81,8 @@ switch ($page) {
         $controller->mesCommandes();
         break;
 
+    // ── Espace admin ─────────────────────────────────────────
+
     case 'dashboard':
         $controller = new AdministrateurController();
         $controller->dashboard();
@@ -66,8 +97,7 @@ switch ($page) {
             $controller->modifierProduit($_GET['id'] ?? null);
         } elseif ($action === 'supprimer') {
             $controller->supprimerProduit($_GET['id'] ?? null);
-        } 
-        elseif ($action === 'stock') {
+        } elseif ($action === 'stock') {
             $controller->ajouterStock($_GET['id'] ?? null);
         } else {
             $controller->listeProduits();
@@ -100,28 +130,7 @@ switch ($page) {
         }
         break;
 
-    case 'inscription':
-        $controller = new UtilisateurController();
-        $controller->inscription();
-        break;
-
-    case 'login':
-        $controller = new AdministrateurController();
-        $controller->connexion();
-        break;
-
-    case 'deconnexion':
-        if (isset($_SESSION['administrateur_id'])) {
-            $controller = new AdministrateurController();
-            $controller->deconnexion();
-        } elseif (isset($_SESSION['utilisateur_id'])) {
-            $controller = new UtilisateurController();
-            $controller->deconnexion();
-        } else {
-            header('Location: index.php?page=connexion');
-            exit();
-        }
-        break;
+    // ── Page introuvable ─────────────────────────────────────
 
     default:
         header('Location: index.php?page=accueil');
