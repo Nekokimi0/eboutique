@@ -1,6 +1,7 @@
 <?php
 // ============================================================
-// controllers/ProduitController.php - ...
+// controllers/ProduitController.php
+// Gère : catalogue et fiche produit côté client
 // ============================================================
 
 require_once 'models/Produit.php';
@@ -11,21 +12,26 @@ class ProduitController {
     private $modeleProduit;
     private $modeleCategorieProduit;
 
-    function __construct() {
+    public function __construct() {
         $this->modeleProduit = new Produit();
         $this->modeleCategorieProduit = new CategorieProduit();
     }
 
+    // ── Pages client ─────────────────────────────────────────
+
     public function catalogue() {
-        $produits = $this->modeleProduit->getAll();
         $categories = $this->modeleCategorieProduit->getAll();
-        require 'views/client/catalogue.php'; 
+        if (isset($_GET['id_categorie'])) {
+            $produits = $this->modeleProduit->getByCategorie($_GET['id_categorie']);
+        } else {
+            $produits = $this->modeleProduit->getAll();
+        }
+        require 'views/client/catalogue.php';
     }
 
     public function fiche($id) {
         $produit = $this->modeleProduit->getById($id);
         require 'views/client/produit.php';
     }
-
 }
 ?>
