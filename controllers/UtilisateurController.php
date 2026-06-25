@@ -1,6 +1,7 @@
 <?php
 // ============================================================
-// controllers/UtilisateurController.php - ...
+// controllers/UtilisateurController.php
+// Gère : connexion, inscription et déconnexion client
 // ============================================================
 
 require_once 'models/Utilisateur.php';
@@ -9,23 +10,24 @@ class UtilisateurController {
 
     private $modele;
 
-    function __construct() {
+    public function __construct() {
         $this->modele = new Utilisateur();
     }
+
+    // ── Authentification ─────────────────────────────────────
 
     public function connexion() {
         $erreur = null;
         if (isset($_POST['mail'], $_POST['mot_de_passe'])) {
-            $mail = $_POST['mail'];
+            $mail         = $_POST['mail'];
             $mot_de_passe = $_POST['mot_de_passe'];
-            $utilisateur = $this->modele->getByMail($mail);
+            $utilisateur  = $this->modele->getByMail($mail);
             if ($utilisateur && password_verify($mot_de_passe, $utilisateur['mot_de_passe'])) {
-                $_SESSION['utilisateur_id'] = $utilisateur['id_utilisateur'];
+                $_SESSION['utilisateur_id']   = $utilisateur['id_utilisateur'];
                 $_SESSION['utilisateur_mail'] = $utilisateur['mail'];
                 header('Location: index.php?page=catalogue');
                 exit();
-            }
-            else {
+            } else {
                 $erreur = "Identifiants incorrects.";
             }
         }
@@ -37,13 +39,11 @@ class UtilisateurController {
         if (isset($_POST['mail'], $_POST['mot_de_passe'], $_POST['mot_de_passe_confirm'])) {
             if ($_POST['mot_de_passe'] !== $_POST['mot_de_passe_confirm']) {
                 $erreur = "Les mots de passe ne correspondent pas.";
-            } 
-            else {
+            } else {
                 $existant = $this->modele->getByMail($_POST['mail']);
                 if ($existant) {
                     $erreur = "Cette adresse mail est déjà utilisée.";
-                }
-                else {
+                } else {
                     $mot_de_passe = password_hash($_POST['mot_de_passe'], PASSWORD_BCRYPT);
                     $data = [
                         ':nom' => $_POST['nom'],
@@ -67,6 +67,8 @@ class UtilisateurController {
         header('Location: index.php?page=connexion');
         exit();
     }
+
+    // ── Utilitaire ───────────────────────────────────────────
 
     private function requireUtilisateur() {
         if (!isset($_SESSION['utilisateur_id'])) {
