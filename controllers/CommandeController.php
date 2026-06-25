@@ -1,6 +1,7 @@
 <?php
 // ============================================================
-// controllers/CommandeController.php - ...
+// controllers/CommandeController.php
+// Gère : panier (session) et commandes client
 // ============================================================
 
 require_once 'models/Produit.php';
@@ -11,13 +12,15 @@ class CommandeController {
 
     private $modeleProduit;
     private $modeleCommande;
-     private $modeleLigneCommande;
+    private $modeleLigneCommande;
 
-    function __construct() {
+    public function __construct() {
         $this->modeleProduit = new Produit();
         $this->modeleCommande = new Commande();
         $this->modeleLigneCommande = new LigneCommande();
     }
+
+    // ── Panier ───────────────────────────────────────────────
 
     public function ajouterAuPanier() {
         $id_produit = $_POST['id_produit'];
@@ -35,8 +38,7 @@ class CommandeController {
         }
         if (isset($_SESSION['panier'][$id_produit])) {
             $_SESSION['panier'][$id_produit]['quantite'] += $quantite;
-        } 
-        else {
+        } else {
             $_SESSION['panier'][$id_produit] = [
                 'id_produit' => $id_produit,
                 'nom' => $produit['nom'],
@@ -66,6 +68,8 @@ class CommandeController {
         exit();
     }
 
+    // ── Commandes ────────────────────────────────────────────
+
     public function validerCommande() {
         if (!isset($_SESSION['utilisateur_id'])) {
             header('Location: index.php?page=connexion');
@@ -79,12 +83,23 @@ class CommandeController {
         foreach ($_SESSION['panier'] as $article) {
             $prix_total += $article['prix'] * $article['quantite'];
         }
-        $data = [':date' => date('Y-m-d'), ':statut' => 'En attente', ':statut_livraison' => 'En attente', ':prix_total' => $prix_total, ':id_utilisateur' => $_SESSION['utilisateur_id']];
+        $data = [
+            ':date' => date('Y-m-d'),
+            ':statut' => 'En attente',
+            ':statut_livraison' => 'En attente',
+            ':prix_total' => $prix_total,
+            ':id_utilisateur' => $_SESSION['utilisateur_id']
+        ];
         $this->modeleCommande->insert($data);
         $id_commande = $this->modeleCommande->lastInsertId();
         foreach ($_SESSION['panier'] as $article) {
-            $this->modeleLigneCommande->insert([':quantite' => $article['quantite'], ':prix' => $article['prix'], ':id_commande' => $id_commande, ':id_produit' => $article['id_produit']]);
-            $produit = $this->modeleProduit->getById($article['id_produit']);
+            $this->modeleLigneCommande->insert([
+                ':quantite'   => $article['quantite'],
+                ':prix'       => $article['prix'],
+                ':id_commande' => $id_commande,
+                ':id_produit' => $article['id_produit']
+            ]);
+            $produit       = $this->modeleProduit->getById($article['id_produit']);
             $nouveau_stock = $produit['quantite'] - $article['quantite'];
             $this->modeleProduit->updateStock($article['id_produit'], $nouveau_stock);
         }
@@ -104,6 +119,5 @@ class CommandeController {
         }
         require 'views/client/commandes.php';
     }
-
 }
 ?>
