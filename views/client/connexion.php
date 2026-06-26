@@ -1,6 +1,6 @@
 <?php
 // ============================================================
-// views/client/connexion.php — ...
+// views/client/connexion.php — Page de connexion client
 // ============================================================
 ?>
 
