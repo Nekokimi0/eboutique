@@ -1,6 +1,6 @@
 <?php
 // ============================================================
-// views/admin/login.php — ...
+// views/admin/login.php — Page de connexion administrateur
 // ============================================================
 ?>
 
