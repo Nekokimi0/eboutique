@@ -1,6 +1,6 @@
 <?php
 // ============================================================
-// models/Administrateur.php — ...
+// models/Administrateur.php — Modèle de gestion des administrateurs
 // ============================================================
 
 require_once 'models/Model.php';
