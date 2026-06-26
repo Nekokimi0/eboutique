@@ -1,6 +1,6 @@
 <?php
 // ============================================================
-// views/admin/produits.php — ...
+// views/admin/produits.php — Gestion des produits
 // ============================================================
 
 require 'views/templates/header.php';
