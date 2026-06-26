@@ -1,6 +1,6 @@
 <?php
 // ============================================================
-// views/client/panier.php — ...
+// views/client/panier.php — Panier d'achat client
 // ============================================================
 
 require 'views/templates/header.php';
@@ -9,12 +9,12 @@ require 'views/templates/header.php';
 <section class="panier">
     <h1>Mon panier</h1>
 
-    <p><?= array_sum(array_column($panier, 'quantite')) ?> article(s) dans votre panier</p>
-
     <?php if (empty($panier)): ?>
         <p>Votre panier est vide.</p>
         <a href="index.php?page=catalogue">← Retour au catalogue</a>
     <?php else: ?>
+
+        <p><?= array_sum(array_column($panier, 'quantite')) ?> article(s) dans votre panier</p>
 
         <table class="panier-table">
             <thead>
