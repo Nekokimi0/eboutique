@@ -7,6 +7,7 @@ require_once 'models/Model.php';
 
 class CategorieProduit extends Model {
 
+    // ── Lecture ──────────────────────────────────────────────
     public function getAll() {
         $requete = $this->pdo->prepare("SELECT * FROM Categorie_Produit");
         $requete->execute();
@@ -18,6 +19,8 @@ class CategorieProduit extends Model {
         $requete->execute([":id_categorie_produit" => $id]);
         return $requete->fetch();
     }
+
+    // ── Écriture ─────────────────────────────────────────────
 
     public function insert($data) {
         $requete = $this->pdo->prepare("INSERT INTO Categorie_Produit (nom) VALUES(:nom)");
