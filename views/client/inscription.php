@@ -1,6 +1,6 @@
 <?php
 // ============================================================
-// views/client/inscription.php — ...
+// views/client/inscription.php — Page d'inscription client
 // ============================================================
 ?>
 
