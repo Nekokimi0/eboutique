@@ -1,6 +1,6 @@
 <?php
 // ============================================================
-// models/CategorieProduit.php — ...
+// models/CategorieProduit.php — Modèle de gestion des catégories de produits
 // ============================================================
 
 require_once 'models/Model.php';
