@@ -1,6 +1,6 @@
 <?php
 // ============================================================
-// views/templates/footer.php — ...
+// views/templates/footer.php — Pied de page commun à toutes les pages
 // ============================================================
 ?>
         </main>
