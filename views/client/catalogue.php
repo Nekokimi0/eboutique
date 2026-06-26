@@ -1,6 +1,6 @@
 <?php
 // ============================================================
-// views/client/catalogue.php — ...
+// views/client/catalogue.php — Catalogue des produits avec filtres par catégorie
 // ============================================================
 
 require 'views/templates/header.php';
