@@ -1,6 +1,6 @@
 <?php
 // ============================================================
-// views/client/produit.php — ...
+// views/client/produit.php — Fiche détail d'un produit
 // ============================================================
 
 require 'views/templates/header.php';
