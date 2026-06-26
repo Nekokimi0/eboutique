@@ -1,11 +1,13 @@
 <?php
 // ============================================================
-// models/Produit.php — ...
+// models/Produit.php — Modèle de gestion des produits
 // ============================================================
 
 require_once 'models/Model.php';
 
 class Produit extends Model {
+
+    // ── Lecture ──────────────────────────────────────────────
 
     public function getAll() {
         $requete = $this->pdo->prepare("SELECT * FROM Produit");
@@ -20,7 +22,7 @@ class Produit extends Model {
     }
 
     public function getByCategorie($id_categorie) {
-        $requete = $this->pdo->prepare("SELECT * FROM Produit WHERE id_categorie_produit = :id_categorie_produit ");
+        $requete = $this->pdo->prepare("SELECT * FROM Produit WHERE id_categorie_produit = :id_categorie_produit");
         $requete->execute([":id_categorie_produit" => $id_categorie]);
         return $requete->fetchAll();
     }
@@ -32,10 +34,19 @@ class Produit extends Model {
     }
 
     public function getPlusVendus() {
-        $requete = $this->pdo->prepare("SELECT Produit.nom, SUM(Ligne_Commande.quantite) AS total_vendu FROM Produit JOIN Ligne_Commande ON Produit.id_produit = Ligne_Commande.id_produit GROUP BY Produit.id_produit ORDER BY total_vendu DESC LIMIT 5");
+        $requete = $this->pdo->prepare("
+            SELECT Produit.nom, SUM(Ligne_Commande.quantite) AS total_vendu
+            FROM Produit
+            JOIN Ligne_Commande ON Produit.id_produit = Ligne_Commande.id_produit
+            GROUP BY Produit.id_produit
+            ORDER BY total_vendu DESC
+            LIMIT 5
+        ");
         $requete->execute();
         return $requete->fetchAll();
     }
+
+    // ── Écriture ─────────────────────────────────────────────
 
     public function insert($data) {
         $requete = $this->pdo->prepare("INSERT INTO Produit (nom, image, prix, quantite, description, id_categorie_produit) VALUES(:nom, :image, :prix, :quantite, :description, :id_categorie_produit)");
@@ -57,6 +68,5 @@ class Produit extends Model {
         $requete = $this->pdo->prepare("UPDATE Produit SET quantite = :quantite WHERE id_produit = :id_produit");
         return $requete->execute([":id_produit" => $id, ":quantite" => $quantite]);
     }
-
 }
 ?>
