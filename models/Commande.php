@@ -1,11 +1,13 @@
 <?php
 // ============================================================
-// models/Commande.php — ...
+// models/Commande.php — Modèle de gestion des commandes
 // ============================================================
 
 require_once 'models/Model.php';
 
 class Commande extends Model {
+
+    // ── Lecture ──────────────────────────────────────────────
 
     public function getAll() {
         $requete = $this->pdo->prepare("SELECT * FROM Commande");
@@ -20,10 +22,12 @@ class Commande extends Model {
     }
 
     public function getByUtilisateur($id_utilisateur) {
-        $requete = $this->pdo->prepare("SELECT * FROM Commande WHERE id_utilisateur = :id_utilisateur ");
+        $requete = $this->pdo->prepare("SELECT * FROM Commande WHERE id_utilisateur = :id_utilisateur");
         $requete->execute([":id_utilisateur" => $id_utilisateur]);
         return $requete->fetchAll();
     }
+
+    // ── Statistiques ─────────────────────────────────────────
 
     public function getChiffreAffaires() {
         $requete = $this->pdo->prepare("SELECT SUM(prix_total) AS chiffre_affaires FROM Commande");
@@ -36,6 +40,8 @@ class Commande extends Model {
         $requete->execute();
         return $requete->fetchAll();
     }
+
+    // ── Écriture ─────────────────────────────────────────────
 
     public function insert($data) {
         $requete = $this->pdo->prepare("INSERT INTO Commande (date, statut, statut_livraison, prix_total, id_utilisateur) VALUES(:date, :statut, :statut_livraison, :prix_total, :id_utilisateur)");
@@ -55,6 +61,5 @@ class Commande extends Model {
     public function lastInsertId() {
         return $this->pdo->lastInsertId();
     }
-
 }
 ?>
