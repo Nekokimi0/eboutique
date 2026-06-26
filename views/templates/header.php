@@ -1,6 +1,6 @@
 <?php
 // ============================================================
-// views/templates/header.php — ...
+// views/templates/header.php — En-tête commun à toutes les pages
 // ============================================================
 ?>
 
@@ -20,7 +20,7 @@
                     <li><a href="index.php?page=accueil">Accueil</a></li>
                     <li><a href="index.php?page=catalogue">Catalogue</a></li>
                     <?php $nb_articles = isset($_SESSION['panier']) ? array_sum(array_column($_SESSION['panier'], 'quantite')) : 0; ?>
-                        <li><a href="index.php?page=panier">Panier <?php if ($nb_articles > 0): ?>(<?= $nb_articles ?>)<?php endif; ?></a></li>
+                    <li><a href="index.php?page=panier">Panier <?php if ($nb_articles > 0): ?>(<?= $nb_articles ?>)<?php endif; ?></a></li>
                     <?php if (isset($_SESSION['utilisateur_id'])): ?>
                         <li><a href="index.php?page=commandes">Mes commandes</a></li>
                         <li><a href="index.php?page=deconnexion">Se déconnecter</a></li>
