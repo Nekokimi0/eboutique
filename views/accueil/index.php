@@ -1,6 +1,6 @@
 <?php
 // ============================================================
-// views/accueil/index.php — ...
+// views/accueil/index.php — Page d'accueil
 // ============================================================
 
 require 'views/templates/header.php';
