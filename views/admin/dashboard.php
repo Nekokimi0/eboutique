@@ -1,6 +1,6 @@
 <?php
 // ============================================================
-// views/admin/dashboard.php — ...
+// views/admin/dashboard.php — Tableau de bord administrateur
 // ============================================================
 
 require 'views/templates/header.php';
