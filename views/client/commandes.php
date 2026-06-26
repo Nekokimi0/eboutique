@@ -1,6 +1,6 @@
 <?php
 // ============================================================
-// views/client/commandes.php — ...
+// views/client/commandes.php — Historique des commandes client avec accordéon
 // ============================================================
 
 require 'views/templates/header.php';
