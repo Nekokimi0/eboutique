@@ -1,6 +1,6 @@
 <?php
 // ============================================================
-// views/admin/commandes.php — ...
+// views/admin/commandes.php — Gestion des commandes côté admin
 // ============================================================
 
 require 'views/templates/header.php';
