@@ -3,13 +3,16 @@
 // index.php — Routeur principal (point d'entrée unique)
 // ============================================================
 
+// Démarrage de la session PHP
 session_start();
 
+// Chargement des controllers
 require_once 'controllers/UtilisateurController.php';
 require_once 'controllers/AdministrateurController.php';
 require_once 'controllers/ProduitController.php';
 require_once 'controllers/CommandeController.php';
 
+// Récupération de la page demandée (accueil par défaut)
 $page = $_GET['page'] ?? 'accueil';
 
 switch ($page) {
@@ -43,11 +46,13 @@ switch ($page) {
         break;
 
     case 'login':
+        // Page de connexion administrateur
         $controller = new AdministrateurController();
         $controller->connexion();
         break;
 
     case 'deconnexion':
+        // Déconnexion selon le type de session active (admin ou client)
         if (isset($_SESSION['administrateur_id'])) {
             $controller = new AdministrateurController();
             $controller->deconnexion();
@@ -64,6 +69,7 @@ switch ($page) {
 
     case 'panier':
         $controller = new CommandeController();
+        // Récupération de l'action demandée (afficher par défaut)
         $action = $_GET['action'] ?? 'afficher';
         if ($action === 'ajouter') {
             $controller->ajouterAuPanier();
@@ -90,6 +96,7 @@ switch ($page) {
 
     case 'admin_produits':
         $controller = new AdministrateurController();
+        // Récupération de l'action demandée (liste par défaut)
         $action = $_GET['action'] ?? 'liste';
         if ($action === 'ajouter') {
             $controller->ajouterProduit();
@@ -106,6 +113,7 @@ switch ($page) {
 
     case 'admin_categories':
         $controller = new AdministrateurController();
+        // Récupération de l'action demandée (liste par défaut)
         $action = $_GET['action'] ?? 'liste';
         if ($action === 'ajouter') {
             $controller->ajouterCategorie();
@@ -120,6 +128,7 @@ switch ($page) {
 
     case 'admin_commandes':
         $controller = new AdministrateurController();
+        // Récupération de l'action demandée (liste par défaut)
         $action = $_GET['action'] ?? 'liste';
         if ($action === 'statut') {
             $controller->updateStatutCommande($_GET['id'] ?? null, $_GET['statut'] ?? null);
