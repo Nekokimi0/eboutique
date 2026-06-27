@@ -9,10 +9,11 @@ require_once 'models/CategorieProduit.php';
 
 class ProduitController {
 
-    private $modeleProduit;
-    private $modeleCategorieProduit;
+    private $modeleProduit; // Modèle Produit
+    private $modeleCategorieProduit; // Modèle CategorieProduit
 
     public function __construct() {
+        // Instanciation des modèles nécessaires
         $this->modeleProduit = new Produit();
         $this->modeleCategorieProduit = new CategorieProduit();
     }
@@ -21,6 +22,7 @@ class ProduitController {
 
     public function catalogue() {
         $categories = $this->modeleCategorieProduit->getAll();
+        // Filtre par catégorie si un id_categorie est passé en paramètre
         if (isset($_GET['id_categorie'])) {
             $produits = $this->modeleProduit->getByCategorie($_GET['id_categorie']);
         } else {
@@ -30,6 +32,7 @@ class ProduitController {
     }
 
     public function fiche($id) {
+        // Récupération du produit par son id
         $produit = $this->modeleProduit->getById($id);
         require 'views/client/produit.php';
     }
