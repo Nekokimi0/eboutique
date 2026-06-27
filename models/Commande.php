@@ -36,6 +36,7 @@ class Commande extends Model {
     }
 
     public function getCommandesParMois() {
+        // Retourne le nombre de commandes groupées par mois (pour le graphique du dashboard)
         $requete = $this->pdo->prepare("SELECT MONTH(date) AS mois, COUNT(*) AS nombre FROM Commande GROUP BY MONTH(date)");
         $requete->execute();
         return $requete->fetchAll();
@@ -59,6 +60,7 @@ class Commande extends Model {
     }
 
     public function lastInsertId() {
+        // Retourne l'id de la dernière commande insérée (utilisé pour les lignes de commande)
         return $this->pdo->lastInsertId();
     }
 }
