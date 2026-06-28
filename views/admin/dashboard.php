@@ -5,13 +5,14 @@
 
 require 'views/templates/header.php';
 
-// Préparer les données pour Chart.js
+// Initialisation des labels des mois pour Chart.js
 $labels_mois = ['Jan', 'Fév', 'Mar', 'Avr', 'Mai', 'Jun', 'Jul', 'Aoû', 'Sep', 'Oct', 'Nov', 'Déc'];
+// Initialisation à 0 pour les 12 mois, puis remplissage avec les vraies données
 $data_mois = array_fill(0, 12, 0);
 foreach ($commandes_par_mois as $row) {
-    $data_mois[$row['mois'] - 1] = $row['nombre'];
+    $data_mois[$row['mois'] - 1] = $row['nombre']; // -1 car les mois SQL commencent à 1
 }
-
+// Extraction des noms et quantités vendues pour le graphique des produits
 $labels_produits = array_column($plus_vendus, 'nom');
 $data_produits = array_column($plus_vendus, 'total_vendu');
 ?>
