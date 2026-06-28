@@ -10,6 +10,7 @@ class LigneCommande extends Model {
     // ── Lecture ──────────────────────────────────────────────
 
     public function getByCommande($id_commande) {
+        // Récupère les lignes de commande avec le nom du produit via une jointure
         $requete = $this->pdo->prepare("
             SELECT Ligne_Commande.*, Produit.nom
             FROM Ligne_Commande
