@@ -1,6 +1,6 @@
 <?php
 // ============================================================
-// views/admin/categories.php — ...
+// views/admin/categories.php — Gestion des catégories de produits
 // ============================================================
 
 require 'views/templates/header.php';
