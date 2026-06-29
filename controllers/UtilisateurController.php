@@ -72,9 +72,9 @@ class UtilisateurController {
     }
 
     public function deconnexion() {
-        // Destruction de la session et redirection vers la page de connexion
+        // Destruction de la session et redirection vers l'accueil
         session_destroy();
-        header('Location: index.php?page=connexion');
+        header('Location: index.php?page=accueil');
         exit();
     }
 
