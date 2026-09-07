@@ -19,7 +19,7 @@ Site web dynamique de vente de mangas, développé en PHP avec une architecture 
 | ![Produit](screenshots/produit.png) | ![Panier](screenshots/panier.png) |
 
 | Historique des commandes avec accordéon ouvert |
-|:-:|:-:|
+|:-:|
 | ![Historique](screenshots/historique.png) |
 
 ### Espace admin
@@ -39,7 +39,9 @@ Site web dynamique de vente de mangas, développé en PHP avec une architecture 
 - **PHP** — logique serveur et routing
 - **MariaDB** — base de données relationnelle
 - **PDO** — accès à la base de données avec requêtes préparées
-- **CSS** — mise en page et design (palette rose/pêche/or, police Pacifico)
+- **HTML / CSS** — structure et mise en page du site
+- **JavaScript** — interactions côté client
+- **Chart.js** — graphiques interactifs du tableau de bord
 - **Architecture MVC** — séparation claire des responsabilités
 
 ---
