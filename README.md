@@ -38,7 +38,7 @@ Site web dynamique de vente de mangas, développé en PHP avec une architecture 
 
 - **PHP** — logique serveur et routing
 - **MariaDB** — base de données relationnelle
-- **PDO** — accès sécurisé à la base (requêtes préparées)
+- **PDO** — accès à la base de données avec requêtes préparées
 - **CSS** — mise en page et design (palette rose/pêche/or, police Pacifico)
 - **Architecture MVC** — séparation claire des responsabilités
 
@@ -46,74 +46,85 @@ Site web dynamique de vente de mangas, développé en PHP avec une architecture 
 
 ## Fonctionnalités
 
-- Présentation des chats résidents avec fiches détaillées
-- Menu du café (boissons, snacks) organisé par catégories
-- Formulaire de réservation en ligne
-- Espace d'administration sécurisé (authentification par session)
-- Upload de photos pour les chats et les produits
-- Gestion des horaires d'ouverture
-- CRUD complet sur toutes les entités (admin)
+- Catalogue de mangas avec filtrage par catégorie
+- Fiches détaillées des produits avec gestion du stock
+- Création de compte et authentification des clients
+- Panier avec gestion des quantités
+- Passage et suivi des commandes
+- Historique des commandes avec détail des articles
+- Espace d'administration sécurisé
+- CRUD complet sur les produits et catégories
+- Gestion et réapprovisionnement des stocks
+- Gestion des commandes clients
+- Tableau de bord avec statistiques et graphiques
 
 ---
 
 ## Structure de la base de données
 
-La base contient 7 tables :
+La base contient 6 tables :
 
-- `chats` — fiches des chats résidents
-- `categories_menu` — catégories du menu
-- `produits` — items du menu
-- `reservations` — réservations des clients
-- `horaires` — horaires d'ouverture
-- `infos_site` — informations générales du café
-- `admins` — comptes administrateurs
+- `Administrateur` — comptes administrateurs
+- `Utilisateur` — comptes clients
+- `Commande` — commandes passées par les clients
+- `Ligne_Commande` — détail des produits de chaque commande
+- `Produit` — mangas disponibles à la vente
+- `Categorie_Produit` — catégories des mangas
 
 ---
 
 ## Architecture du projet
 
 ```
-Projet-php-bar-a-chat/
-├── config/          # Configuration BDD et constantes
-├── controllers/     # Contrôleurs (logique métier)
-├── models/          # Modèles (accès aux données)
-├── views/           # Templates HTML/PHP
-├── public/          # Assets publics (CSS, images, JS)
-├── index.php        # Point d'entrée unique (front controller)
-└── init.sql         # Script d'initialisation de la base de données
+eboutique/
+├── index.php ← Routeur (point d'entrée unique)
+├── init.sql ← Initialisation BDD
+├── sessions/ ← Stockage sessions PHP
+├── config/
+│ └── database.php ← Connexion PDO
+├── models/ ← COUCHE MODÈLE
+│ ├── Model.php ← Classe parente
+│ ├── Utilisateur.php
+│ ├── Administrateur.php
+│ ├── CategorieProduit.php
+│ ├── Produit.php
+│ ├── Commande.php
+│ └── LigneCommande.php
+├── controllers/ ← COUCHE CONTRÔLEUR
+│ ├── UtilisateurController.php
+│ ├── AdministrateurController.php
+│ ├── ProduitController.php
+│ └── CommandeController.php
+├── views/ ← COUCHE VUE
+│ ├── templates/
+│ │ ├── header.php
+│ │ └── footer.php
+│ ├── accueil/
+│ │ └── index.php
+│ ├── client/
+│ │ ├── connexion.php
+│ │ ├── inscription.php
+│ │ ├── catalogue.php
+│ │ ├── produit.php ← Fiche détail produit
+│ │ ├── panier.php
+│ │ └── commandes.php ← Historique commandes client
+│ └── admin/
+│ ├── login.php
+│ ├── dashboard.php
+│ ├── produits.php ← Liste des produits
+│ ├── form_produit.php ← Ajout / modification produit
+│ ├── categories.php ← Liste des catégories
+│ ├── form_categorie.php ← Ajout / modification catégorie
+│ └── commandes.php ← Liste des commandes clients
+└── public/
+├── css/
+│ └── style.css
+└── images/ ← Photos des produits
 ```
-
----
-
-## Installation locale
-
-### Prérequis
-
-- PHP 8.x
-- MariaDB / MySQL
-- Un serveur local type XAMPP, WAMP ou Laragon
-
-### Étapes
-
-1. Clone le repo
-   ```bash
-   git clone https://github.com/Aid4n4/Projet-php-bar-a-chat.git
-   ```
-
-2. Importe la base de données
-   ```bash
-   mysql -u root -p < init.sql
-   ```
-
-3. Configure la connexion dans `config/`  
-   Renseigne tes identifiants BDD (hôte, nom de base, utilisateur, mot de passe)
-
-4. Lance ton serveur local et ouvre le projet dans ton navigateur
 
 ---
 
 ## Auteurs
 
-- **Serena Pot** — [@Aid4n4](https://github.com/Aid4n4)
 - **Maély Thomas** - [@Nekokimi0](https://github.com/Nekokimi0)
 - Université Lyon 2, 2026
